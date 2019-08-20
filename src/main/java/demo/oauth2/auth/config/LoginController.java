@@ -7,8 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 	
 	@RequestMapping("/ssoLogin")
-	public String ologin() {
+	public String ssologin() {
 		return "ssoLogin";
+	}
+		
+	@RequestMapping("/ssoAccountLocked")
+	public String ssoAccountLocked() {
+		return "ssoAccountLocked";
 	}
 	
 }

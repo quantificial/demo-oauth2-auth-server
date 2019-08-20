@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -14,6 +15,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 
 @EnableWebSecurity
 @Configuration
@@ -65,6 +70,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         // other endpoints
     	http.requestMatchers().antMatchers("/ssoLogin");
     	http.requestMatchers().antMatchers("/ssoLogin/process");
+    	http.requestMatchers().antMatchers("/ssoAccountLocked");
         http.requestMatchers().antMatchers("/exit");
         http.requestMatchers().antMatchers("/h2","/h2/**");
         http.requestMatchers().antMatchers("/test");
@@ -76,6 +82,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         // such that we could assign the permission
         http.authorizeRequests().antMatchers("/ssoLogin").permitAll();
         http.authorizeRequests().antMatchers("/ssoLogin/process").permitAll();
+        http.authorizeRequests().antMatchers("/sooAccountLocked").permitAll();
         http.authorizeRequests().antMatchers("/test").permitAll();
         http.authorizeRequests().antMatchers("/moon").permitAll();
         http.authorizeRequests().antMatchers("/sun").permitAll();
@@ -114,9 +121,43 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         //http.authorizeRequests().antMatchers("/**/*.css").access("permitAll");
         //http.authorizeRequests().antMatchers("/**/*.js").access("permitAll");
         //http.authorizeRequests().antMatchers("/**/*.png").access("permitAll");
-        //http.authorizeRequests().anyRequest().authenticated();        
+        //http.authorizeRequests().anyRequest().authenticated();    
+
+		http.formLogin().failureHandler((req, res, exp) -> { // Failure handler invoked after authentication failure
+
+			// need to handle all the excpetions...
+
+			String errMsg = "";
+			if (exp.getClass().isAssignableFrom(BadCredentialsException.class)) {
+				errMsg = "Invalid username or password.";
+			} else {
+				errMsg = "Unknown error - " + exp.getMessage();
+			}
+			req.getSession().setAttribute("message", errMsg);
+
+			res.sendRedirect(req.getContextPath() + "/ssoLogin"); // Redirect user to login page with error message.
+		});
+
+		http.formLogin().successHandler(successHandler());
 
     } 
+    
+    
+    /**
+     * use SavedRequestAwareAuthenticationSuccessHandler which will save the request stored in the session for the redirect 
+     * @return
+     */
+    @Bean
+    public AuthenticationSuccessHandler successHandler() {
+    	//SavedRequestAwareAuthenticationSuccessHandler
+    	SavedRequestAwareAuthenticationSuccessHandler handler = new SavedRequestAwareAuthenticationSuccessHandler();
+        //SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
+
+    	//handler.setUseReferer(true);
+        //handler.setAlwaysUseDefaultTargetUrl(true);
+        //handler.setRedirectStrategy(new DefaultRedirectStrategy());
+        return handler;
+    }
 
     
     @Bean

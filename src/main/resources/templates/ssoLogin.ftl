@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Custom Login Page</title>
+    <title>SSO</title>
 </head>
 <body>
 <div>
@@ -17,6 +17,12 @@
             <#elseif RequestParameters.logout??>
             <div class="alert alert-success">
                 You have been logged out.
+            </div>
+            </#if>
+            
+            <#if Session.message??>
+            <div class="alert alert-success">
+            	 ${Session.message}
             </div>
             </#if>
             <div>springMacroRequestContext.getRequestUri(): ${springMacroRequestContext.getRequestUri()}</div>
