@@ -78,6 +78,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.requestMatchers().antMatchers("/sun");
         http.requestMatchers().antMatchers("/resources/templates/**");
         http.requestMatchers().antMatchers("/resources/**");
+        http.requestMatchers().antMatchers("/webjars/**");
         
         // such that we could assign the permission
         http.authorizeRequests().antMatchers("/ssoLogin").permitAll();
@@ -89,6 +90,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/h2/**").permitAll();
         http.authorizeRequests().antMatchers("/resources/templates/**").permitAll();
         http.authorizeRequests().antMatchers("/resources/**").permitAll();
+        http.authorizeRequests().antMatchers("/webjars/**").permitAll();
 
         // all other requests must be authenticated
         http
