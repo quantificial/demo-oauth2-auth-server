@@ -17,35 +17,25 @@
 
 <body>
    
-<form name="f" action="${springMacroRequestContext.getContextPath()}/ssoLogin/process" method="post">
+<form name="f" action="${springMacroRequestContext.getContextPath()}/changePassword/process" method="post">
 		<input type="hidden" id="csrf_token" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 	
-            <#assign abc = "this is abcdefg">
-            <#if RequestParameters.error??>
-            <div class="alert alert-error">
-                Invalid username and password.
-            </div>
-            <#elseif RequestParameters.logout??>
-            <div class="alert alert-success">
-                You have been logged out.
-            </div>
-            </#if>
-            
-            <#if Session.message??>
-            <div class="alert alert-success">
-            	 ${Session.message}
-            </div>
-            </#if>
     <div class="container">
         <div class="card card-container">
-            <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
-            <img id="profile-img" class="profile-img-card" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" />
+                        
             <p id="profile-name" class="profile-name-card"></p>
             <form class="form-signin">
                 <span id="reauth-email" class="reauth-email"></span>
+                
+                <div class="d-flex justify-content-center"><label>Change Password</label></div>
 
 	            <input type="text" id="username" name="username" class="form-control" placeholder="username" required autofocus>				                
-                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+                <input type="password" id="password" name="password" class="form-control" placeholder="old password" required>
+                
+                <label></label>
+                
+                <input type="password" id="newPassword" name="newPassword" class="form-control" placeholder="new password" required>
+                <input type="password" id="newPassword2" name="newPassword2" class="form-control" placeholder="re-input new password" required>
                 <div>
                 	<label></label>
                 </div>
@@ -56,12 +46,10 @@
                     </label>
                 </div>
                 -->
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Confirm</button>
             </form><!-- /form -->
             <label></label>
-            <a href="${springMacroRequestContext.getContextPath()}/changePassword" class="forgot-password">
-                change password?
-            </a>
+
         </div><!-- /card-container -->
     </div><!-- /container -->
     
