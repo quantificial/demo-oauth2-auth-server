@@ -64,13 +64,21 @@ CREATE TABLE IF NOT exists oauth_approvals (
 --  PRIMARY KEY(username, authority)
 --);
 
+--		this.enabled = enabled;
+--		this.accountNonExpired = accountNonExpired;
+--		this.credentialsNonExpired = credentialsNonExpired;
+--		this.accountNonLocked = accountNonLocked;
 
 CREATE TABLE if not exists credentials (
-  id  integer,
-  enabled boolean not null,
+  id  integer,  
   name varchar(255) not null,
   password varchar(255) not null,
-  version integer,
+  version integer,  
+  enabled boolean not null default true,
+  account_expired boolean not null default false,
+  credentials_expired boolean not null default false,
+  account_locked boolean not null default false,
+  login_failure_count int not null default 0,
   primary key (id)
 );
 

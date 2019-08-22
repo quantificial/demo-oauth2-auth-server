@@ -16,6 +16,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -24,6 +25,13 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 @Configuration
 @Order(1)
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+	
+	//@Autowired
+	//private CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
+	
+	//@Autowired
+	//private CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+	
 	
 	@Override
 	public void configure(WebSecurity web) throws Exception {
@@ -87,6 +95,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/test").permitAll();
         http.authorizeRequests().antMatchers("/moon").permitAll();
         http.authorizeRequests().antMatchers("/sun").permitAll();
+        http.authorizeRequests().antMatchers("/h2/").permitAll();
         http.authorizeRequests().antMatchers("/h2/**").permitAll();
         http.authorizeRequests().antMatchers("/resources/templates/**").permitAll();
         http.authorizeRequests().antMatchers("/resources/**").permitAll();
@@ -108,6 +117,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // disable csrf, such that get could be used for /logout
         //http.csrf().disable();
+        http.csrf().ignoringAntMatchers("/h2/**");
         
         // for h2
         http.headers().frameOptions().disable();
@@ -125,36 +135,43 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         //http.authorizeRequests().antMatchers("/**/*.png").access("permitAll");
         //http.authorizeRequests().anyRequest().authenticated();    
 
-		http.formLogin().failureHandler((req, res, exp) -> { // Failure handler invoked after authentication failure
+//		http.formLogin().failureHandler((req, res, exp) -> { // Failure handler invoked after authentication failure
+//
+//			// need to handle all the excpetions...
+//
+//			String errMsg = "";
+//			if (exp.getClass().isAssignableFrom(BadCredentialsException.class)) {
+//				errMsg = "Invalid username or password.";
+//			} else {
+//				errMsg = "Unknown error - " + exp.getMessage();
+//			}
+//			req.getSession().setAttribute("message", errMsg);
+//
+//			res.sendRedirect(req.getContextPath() + "/ssoLogin"); // Redirect user to login page with error message.
+//		});
 
-			// need to handle all the excpetions...
-
-			String errMsg = "";
-			if (exp.getClass().isAssignableFrom(BadCredentialsException.class)) {
-				errMsg = "Invalid username or password.";
-			} else {
-				errMsg = "Unknown error - " + exp.getMessage();
-			}
-			req.getSession().setAttribute("message", errMsg);
-
-			res.sendRedirect(req.getContextPath() + "/ssoLogin"); // Redirect user to login page with error message.
-		});
-
+        //http.formLogin().failureHandler(this.customAuthenticationFailureHandler);
 		http.formLogin().successHandler(successHandler());
-
+		http.formLogin().failureHandler(failureHandler());
     } 
     
+    @Bean
+    public AuthenticationFailureHandler failureHandler() {
+    	CustomAuthenticationFailureHandler handler = new CustomAuthenticationFailureHandler();
+    	return handler;
+    }
     
     /**
-     * use SavedRequestAwareAuthenticationSuccessHandler which will save the request stored in the session for the redirect 
+     * use SavedRequestAwareAuthenticationSuccessHandler which will save the original request url and store in the session for the redirect 
      * @return
      */
     @Bean
     public AuthenticationSuccessHandler successHandler() {
     	//SavedRequestAwareAuthenticationSuccessHandler
-    	SavedRequestAwareAuthenticationSuccessHandler handler = new SavedRequestAwareAuthenticationSuccessHandler();
-        //SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
-
+    	//SavedRequestAwareAuthenticationSuccessHandler handler = new SavedRequestAwareAuthenticationSuccessHandler();
+        CustomAuthenticationSuccessHandler handler = new CustomAuthenticationSuccessHandler();
+    	//SimpleUrlAuthenticationSuccessHandler handler = new SimpleUrlAuthenticationSuccessHandler();
+    	    	
     	//handler.setUseReferer(true);
         //handler.setAlwaysUseDefaultTargetUrl(true);
         //handler.setRedirectStrategy(new DefaultRedirectStrategy());

@@ -25,7 +25,16 @@ public class Credentials implements Serializable {
 
     @NotEmpty
     private String password;
+    
+    private boolean accountExpired;
 
+    private boolean credentialsExpired;
+    
+    private boolean accountLocked;
+    
+    private int loginFailureCount;
+    
+    
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "credentials_authorities",
     	joinColumns = @JoinColumn(name = "credentials_id", referencedColumnName = "id"),

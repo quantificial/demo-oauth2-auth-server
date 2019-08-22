@@ -42,9 +42,12 @@ public class JdbcUserDetails implements UserDetailsService{
         User user = new User(credentials.getName(), 
         		credentials.getPassword(),
         		credentials.isEnabled(),
-        		true, // account non-expired
-        		true, // credentialsNonExpired 
-        		true, // accountNonLocked 
+        		//true, // account non-expired
+        		//true, // credentialsNonExpired 
+        		//true, // accountNonLocked 
+        		!credentials.isAccountExpired(),
+        		!credentials.isCredentialsExpired(),
+        		!credentials.isAccountLocked(),
         		credentials.getAuthorities());
         
         log.info("## Authority ##########################################");

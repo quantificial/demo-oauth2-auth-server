@@ -26,7 +26,18 @@ INSERT INTO authority VALUES(6,'ROLE_SSO_ADMIN');
 
 -- users credentials
 
-INSERT INTO credentials VALUES (1, true,'johnson','{bcrypt}$2a$10$s.Fr/DyaoiMcRmCD4zicRuMXm6EUhvijVQtNOzKKI2YS7SMIWql9K','0');
+--  id  integer,  
+--  name varchar(255) not null,
+--  password varchar(255) not null,
+--  version integer,  
+--  enabled boolean not null,
+--  account_expired boolean default false,
+--  credentials_expired boolean default false,
+--  account_locked boolean default false,  
+--  primary key (id)
+
+INSERT INTO credentials (id, name, password, version )
+	VALUES (1, 'johnson','{bcrypt}$2a$10$s.Fr/DyaoiMcRmCD4zicRuMXm6EUhvijVQtNOzKKI2YS7SMIWql9K','0');
 --INSERT INTO credentials VALUES(2,b'1','resource_admin','$2a$10$BurTWIy5NTF9GJJH4magz.9Bd4bBurWYG8tmXxeQh1vs7r/wnCFG2','0');
 --INSERT INTO credentials  VALUES(3,b'1','product_admin','$2a$10$BurTWIy5NTF9GJJH4magz.9Bd4bBurWYG8tmXxeQh1vs7r/wnCFG2','0');
 
