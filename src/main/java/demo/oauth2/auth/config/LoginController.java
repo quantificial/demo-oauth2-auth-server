@@ -49,7 +49,7 @@ public class LoginController {
 		
 		if(password.contentEquals(newPassword)) {
 			params.put("msg", "old password and new password cannot be same");
-			invalidProcess = true;			
+			invalidProcess = true;
 		}
 		
 		if(credentialService.verifyPassword(username, password) && !invalidProcess) {
