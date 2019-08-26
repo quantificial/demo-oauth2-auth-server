@@ -70,7 +70,7 @@ CREATE TABLE IF NOT exists oauth_approvals (
 --		this.accountNonLocked = accountNonLocked;
 
 CREATE TABLE if not exists credentials (
-  id  integer,  
+  id  varchar(32),  
   name varchar(255) not null,
   password varchar(255) not null,
   version integer,  
@@ -83,12 +83,12 @@ CREATE TABLE if not exists credentials (
 );
 
 CREATE TABLE if not exists credentials_authorities (
-  credentials_id bigint not null,
-  authorities_id bigint not null
+  credentials_id varchar(32) not null,
+  authorities_id varchar(32) not null
 );
 
 CREATE TABLE if not exists authority (
-  id  integer,
+  id  varchar(32),
   authority varchar(255),
   primary key (id)
 );

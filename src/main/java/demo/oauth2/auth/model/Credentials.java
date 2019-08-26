@@ -3,6 +3,8 @@ package demo.oauth2.auth.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import lombok.Data;
 
 import java.io.Serializable;
@@ -11,11 +13,13 @@ import java.util.List;
 @Entity
 @Table(name ="credentials")
 @Data
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Credentials implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    //@GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "jpa-uuid")
+    private String id;
 
     @Version
     private Integer version;
