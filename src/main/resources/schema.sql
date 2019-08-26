@@ -79,7 +79,11 @@ CREATE TABLE if not exists credentials (
   credentials_expired boolean not null default false,
   account_locked boolean not null default false,
   login_failure_count int not null default 0,
-  primary key (id)
+  created_at datetime,
+  updated_at datetime,
+  created_by varchar(255),
+  last_modified_by varchar(255),
+  	constraint credentials_pk primary key (id)
 );
 
 CREATE TABLE if not exists credentials_authorities (
