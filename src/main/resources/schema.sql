@@ -79,6 +79,7 @@ CREATE TABLE if not exists credentials (
   credentials_expired boolean not null default false,
   account_locked boolean not null default false,
   login_failure_count int not null default 0,
+  department_id varchar(32),
   created_at datetime,
   updated_at datetime,
   created_by varchar(255),
@@ -96,5 +97,19 @@ CREATE TABLE if not exists authority (
   authority varchar(255),
   primary key (id)
 );
+
+
+CREATE TABLE if not exists department (
+	id varchar(32),
+	name varchar(255),
+	description varchar(255),
+	constraint department_pk primary key (id)
+);
+
+
+
+
+
+
 
 

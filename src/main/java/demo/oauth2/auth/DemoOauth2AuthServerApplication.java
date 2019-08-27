@@ -3,6 +3,8 @@ package demo.oauth2.auth;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -13,7 +15,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 
 import demo.oauth2.auth.model.Authority;
 import demo.oauth2.auth.model.Credentials;
-import demo.oauth2.auth.repository.CredentialRepository;
+import demo.oauth2.auth.model.Department;
+import demo.oauth2.auth.repository.CredentialsRepository;
+import demo.oauth2.auth.repository.DepartmentRepository;
 
 @SpringBootApplication
 @EnableResourceServer
@@ -27,9 +31,13 @@ public class DemoOauth2AuthServerApplication implements CommandLineRunner {
 	
 	
 	@Autowired
-	private CredentialRepository credentialRepository;
+	private CredentialsRepository credentialRepository;
+	
+	@Autowired
+	private DepartmentRepository departmentRepository;
 
 	@Override
+	@Transactional
 	public void run(String... args) throws Exception {
 		
 		
@@ -51,7 +59,59 @@ public class DemoOauth2AuthServerApplication implements CommandLineRunner {
 		a.setAuthorities(authority);
 		
 		
-		credentialRepository.save(a);
+		a = credentialRepository.saveAndFlush(a);
+		
+		
+		
+		Department dept = new Department();
+		dept.setName("IT");
+		dept.setDescription("this is description");
+		
+		dept = departmentRepository.saveAndFlush(dept);
+		
+		
+		a.setDepartment(dept);
+		
+		a = credentialRepository.saveAndFlush(a);
+		
+		
+		
+		Department searchDept = departmentRepository.findByName("IT");
+		
+		
+		Credentials b = new Credentials();
+		b.setName("xyz");
+		b.setPassword("abcd1234");
+		b.setVersion(1);
+		
+		b.setAuthorities(authority);
+		b.setDepartment(searchDept);
+		b = credentialRepository.saveAndFlush(b);
+		
+		//System.out.println(dept.getId());
+		
+		
+		
+		searchDept = departmentRepository.findByName("IT");
+				
+//		
+//		System.out.println("Department " + searchDept.getName());
+//		//= searchDept.getCredentials()
+//		
+//		
+		for(Credentials c : searchDept.getCredentialsSet()) {
+			System.out.println(c.getName());
+		}
+//		
+//		
+//		
+//		//System.out.println(size);
+//		
+//		Credentials x = credentialRepository.findByName("xyz");
+//		
+//		System.out.println(x.getDepartment().getName());
+		
+		
 				
 	}
 

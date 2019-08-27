@@ -11,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import demo.oauth2.auth.config.AuditModel;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,6 +21,7 @@ import java.util.UUID;
 @Entity
 @Table(name ="credentials")
 @Data
+@EqualsAndHashCode(exclude="department")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 @JsonIgnoreProperties(
         value = {"createdAt", "updatedAt"},
@@ -58,6 +60,15 @@ public class Credentials extends AuditModel implements Serializable {
     private List<Authority> authorities;
 
     private boolean enabled;
+                
+        
+	@ManyToOne(fetch = FetchType.LAZY)
+	//@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	//@JoinColumn(name = "department_id", insertable = false, updatable = false)
+	@JoinColumn(name = "department_id", nullable = false)
+	//@JoinColumn(name = "department_id")
+	//@Fetch(FetchMode.JOIN)
+	private Department department;
 
 
 }

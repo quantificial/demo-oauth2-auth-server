@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 import demo.oauth2.auth.AppConstants;
 import demo.oauth2.auth.model.Credentials;
-import demo.oauth2.auth.repository.CredentialRepository;
+import demo.oauth2.auth.repository.CredentialsRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Component
@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class CredentialService {
 	
 	@Autowired
-	private CredentialRepository credentialRepository;
+	private CredentialsRepository credentialRepository;
 	
     @Autowired    
     private PasswordEncoder passwordEncoder;

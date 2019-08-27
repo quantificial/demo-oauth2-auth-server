@@ -13,14 +13,14 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import demo.oauth2.auth.model.Authority;
 import demo.oauth2.auth.model.Credentials;
-import demo.oauth2.auth.repository.CredentialRepository;
+import demo.oauth2.auth.repository.CredentialsRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class JdbcUserDetails implements UserDetailsService{
 
     @Autowired
-    private CredentialRepository credentialRepository;
+    private CredentialsRepository credentialRepository;
     
     public static String getRequestRemoteAddr(){
         HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.currentRequestAttributes())
