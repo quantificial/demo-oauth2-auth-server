@@ -27,7 +27,9 @@ import java.util.UUID;
 )
 public class Credentials extends AuditModel implements Serializable {
 
-    @Id
+	private static final long serialVersionUID = 8766183103606824311L;
+
+	@Id
     //@GeneratedValue(strategy = GenerationType.AUTO)
     @GeneratedValue(generator = "jpa-uuid")
     private String id;

@@ -94,6 +94,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/ssoLogin").permitAll();
         http.authorizeRequests().antMatchers("/ssoLogin/process").permitAll();
         http.authorizeRequests().antMatchers("/sooAccountLocked").permitAll();
+        http.authorizeRequests().antMatchers("/exit").permitAll();
         http.authorizeRequests().antMatchers("/test").permitAll();
         http.authorizeRequests().antMatchers("/moon").permitAll();
         http.authorizeRequests().antMatchers("/sun").permitAll();
