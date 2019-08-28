@@ -12,6 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.session.hazelcast.config.annotation.web.http.EnableHazelcastHttpSession;
 
 import demo.oauth2.auth.model.Authority;
 import demo.oauth2.auth.model.Credentials;
@@ -22,6 +23,7 @@ import demo.oauth2.auth.repository.DepartmentRepository;
 
 @SpringBootApplication
 @EnableResourceServer
+@EnableHazelcastHttpSession
 @EnableJpaAuditing
 @ComponentScan
 public class DemoOauth2AuthServerApplication implements CommandLineRunner {

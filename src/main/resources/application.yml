@@ -24,6 +24,8 @@ spring:
   jpa:
     hibernate:
       ddl-auto: none
+  session:
+    store-type: hazelcast
       
 keystore:
   alias: jwt

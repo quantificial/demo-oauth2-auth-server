@@ -1,4 +1,4 @@
-package demo.oauth2.auth.config;
+package demo.oauth2.auth.controller;
 
 import java.util.HashMap;
 
