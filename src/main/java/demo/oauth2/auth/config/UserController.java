@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import demo.oauth2.auth.model.Credentials;
 import demo.oauth2.auth.model.Department;
+import demo.oauth2.auth.model.Organization;
 import demo.oauth2.auth.repository.CredentialsRepository;
 import demo.oauth2.auth.repository.DepartmentRepository;
+import demo.oauth2.auth.repository.OrganizationRepository;
 
 @RestController
 public class UserController {
@@ -20,6 +22,9 @@ public class UserController {
 	@Autowired
 	private DepartmentRepository departmentRepository;
 	
+	@Autowired
+	private OrganizationRepository organizationRepository;
+	
 
     @RequestMapping("/user/me")
     public Principal user(Principal principal) {
@@ -29,12 +34,22 @@ public class UserController {
     
     @RequestMapping("/test")
     public String test() {
-    	
-    	Department searchDept = departmentRepository.findByName("IT");
-    	
-		for(Credentials c : searchDept.getCredentialsSet()) {
-			System.out.println(c.getName());
+    			
+		Organization o = organizationRepository.findByName("TEST ORG");
+		
+		System.out.println(o.getName());
+		
+		
+		for(Department iter : o.getDepartmentSet()) {
+			
+			System.out.println(iter.getName());
+			
+			for(Credentials c : iter.getCredentialsSet()) {
+				System.out.println(c.getName());
+			}
 		}
+		
+		
 		
     	return "test";
     }

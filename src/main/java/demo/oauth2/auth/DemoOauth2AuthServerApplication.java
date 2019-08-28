@@ -16,6 +16,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import demo.oauth2.auth.model.Authority;
 import demo.oauth2.auth.model.Credentials;
 import demo.oauth2.auth.model.Department;
+import demo.oauth2.auth.model.Organization;
 import demo.oauth2.auth.repository.CredentialsRepository;
 import demo.oauth2.auth.repository.DepartmentRepository;
 
@@ -59,7 +60,7 @@ public class DemoOauth2AuthServerApplication implements CommandLineRunner {
 		a.setAuthorities(authority);
 		
 		
-		a = credentialRepository.saveAndFlush(a);
+		a = credentialRepository.save(a);
 		
 		
 		
@@ -67,12 +68,21 @@ public class DemoOauth2AuthServerApplication implements CommandLineRunner {
 		dept.setName("IT");
 		dept.setDescription("this is description");
 		
-		dept = departmentRepository.saveAndFlush(dept);
+		
+		Organization o = new Organization();
+		o.setName("TEST ORG");
+		o.setDescription("TEST ORG");
+		
+		dept.setOrganization(o);
+		
+		dept = departmentRepository.save(dept);
+			
+		
 		
 		
 		a.setDepartment(dept);
 		
-		a = credentialRepository.saveAndFlush(a);
+		a = credentialRepository.save(a);
 		
 		
 		
@@ -86,7 +96,7 @@ public class DemoOauth2AuthServerApplication implements CommandLineRunner {
 		
 		b.setAuthorities(authority);
 		b.setDepartment(searchDept);
-		b = credentialRepository.saveAndFlush(b);
+		b = credentialRepository.save(b);
 		
 		//System.out.println(dept.getId());
 		

@@ -84,7 +84,7 @@ CREATE TABLE if not exists credentials (
   updated_at datetime,
   created_by varchar(255),
   last_modified_by varchar(255),
-  	constraint credentials_pk primary key (id)
+  constraint  credentials_pk primary key  (id)
 );
 
 CREATE TABLE if not exists credentials_authorities (
@@ -103,10 +103,17 @@ CREATE TABLE if not exists department (
 	id varchar(32),
 	name varchar(255),
 	description varchar(255),
+	organization_id varchar(255),
 	constraint department_pk primary key (id)
 );
 
 
+CREATE TABLE if not exists organization (
+	id varchar(32),
+	name varchar(255),
+	description varchar(255),
+	constraint organization_pk primary key (id)
+);
 
 
 

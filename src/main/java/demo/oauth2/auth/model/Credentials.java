@@ -62,7 +62,7 @@ public class Credentials extends AuditModel implements Serializable {
     private boolean enabled;
                 
         
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	//@JoinColumn(name = "department_id", insertable = false, updatable = false)
 	@JoinColumn(name = "department_id", nullable = false)

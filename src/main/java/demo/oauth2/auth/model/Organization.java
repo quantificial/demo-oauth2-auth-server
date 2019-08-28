@@ -9,8 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -20,9 +18,9 @@ import lombok.EqualsAndHashCode;
 
 @Entity
 @Data
-@EqualsAndHashCode(exclude="credentialsSet")
+@EqualsAndHashCode(exclude="departmentSet")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class Department {
+public class Organization {
 
     @Id
     @GeneratedValue(generator = "jpa-uuid")
@@ -34,17 +32,13 @@ public class Department {
     @Column(name = "description", nullable = false, length = 255)
     private String description;
         
-    //@OneToMany( mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
-    @OneToMany(targetEntity = Credentials.class, 
-    		mappedBy = "department", 
+    @OneToMany(targetEntity = Department.class, 
+    		mappedBy = "organization", 
     		orphanRemoval = false, 
     		fetch = FetchType.LAZY, 
     		cascade = CascadeType.ALL)
-    private Set<Credentials> credentialsSet = new HashSet<>(0);
+    private Set<Department> departmentSet = new HashSet<>(0);
     
    
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "organization_id", nullable = false)
-	private Organization organization;    
     
 }
