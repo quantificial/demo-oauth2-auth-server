@@ -45,6 +45,8 @@ public class Credentials extends AuditModel implements Serializable {
     @NotEmpty
     private String password;
     
+    private String emailAddress;
+    
     private boolean accountExpired;
 
     private boolean credentialsExpired;
@@ -52,6 +54,12 @@ public class Credentials extends AuditModel implements Serializable {
     private boolean accountLocked;
     
     private int loginFailureCount;
+    
+    private Date accountExpiryDate;
+    
+    private Date credentialsExpiryDate;
+    
+    private boolean enabled;
         
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "credentials_authorities",
@@ -59,8 +67,6 @@ public class Credentials extends AuditModel implements Serializable {
     	inverseJoinColumns = @JoinColumn(name = "authorities_id", referencedColumnName = "id"))    
     private List<Authority> authorities;
 
-    private boolean enabled;
-                
         
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	//@ManyToOne(fetch = FetchType.LAZY, optional = false)

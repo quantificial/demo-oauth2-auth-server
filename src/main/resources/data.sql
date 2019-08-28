@@ -46,6 +46,9 @@ INSERT INTO authority VALUES(6,'ROLE_SSO_ADMIN');
 
 INSERT INTO credentials (id, name, password, version, department_id )
 	VALUES (1, 'johnson','{bcrypt}$2a$10$s.Fr/DyaoiMcRmCD4zicRuMXm6EUhvijVQtNOzKKI2YS7SMIWql9K','0', 1);
+	
+--INSERT INTO credentials (id, name, password, version, department_id, account_expired, credentials_expired )
+--	VALUES (1, 'user','{bcrypt}$2a$10$s.Fr/DyaoiMcRmCD4zicRuMXm6EUhvijVQtNOzKKI2YS7SMIWql9K','0', 1, null, null);	
 --INSERT INTO credentials VALUES(2,b'1','resource_admin','$2a$10$BurTWIy5NTF9GJJH4magz.9Bd4bBurWYG8tmXxeQh1vs7r/wnCFG2','0');
 --INSERT INTO credentials  VALUES(3,b'1','product_admin','$2a$10$BurTWIy5NTF9GJJH4magz.9Bd4bBurWYG8tmXxeQh1vs7r/wnCFG2','0');
 
