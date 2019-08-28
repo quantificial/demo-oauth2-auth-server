@@ -1,6 +1,7 @@
 package demo.oauth2.auth.config;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,21 +36,23 @@ public class UserController {
     @RequestMapping("/test")
     public String test() {
     			
-		Organization o = organizationRepository.findByName("TEST ORG");
+		List<Organization> oList = organizationRepository.findAll();
 		
-		System.out.println(o.getName());
-		
-		
-		for(Department iter : o.getDepartmentSet()) {
+		for(Organization oIter : oList) {
 			
-			System.out.println(iter.getName());
-			
-			for(Credentials c : iter.getCredentialsSet()) {
-				System.out.println(c.getName());
+			System.out.println("Organization: " + oIter.getName());
+		
+		
+			for(Department iter : oIter.getDepartmentSet()) {
+				
+				System.out.println("Department: " + iter.getName());
+				
+				for(Credentials c : iter.getCredentialsSet()) {
+					System.out.println("Credentials: " + c.getName());
+				}
 			}
+		
 		}
-		
-		
 		
     	return "test";
     }

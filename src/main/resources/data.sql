@@ -17,6 +17,12 @@ INSERT INTO oauth_client_details (client_id,resource_ids, client_secret, scope, 
   VALUES ('appalone', 'api', '{bcrypt}$2a$10$w6U0a421YvG8GuVXeVcyk..7Kba/esmX0jNwV2jYYwedKC2CIT7Qy', 'read,write', 
   'client_credentials,refresh_token', 'ROLE_CLIENT', 3600, 3600, 'http://localhost:8084/login/sso', 'true'); 
 
+  
+-- organization
+INSERT INTO ORGANIZATION (ID, NAME, DESCRIPTION)  VALUES (1, 'HKM', 'HKM');
+
+-- department
+INSERT INTO DEPARTMENT (ID, NAME, DESCRIPTION, ORGANIZATION_ID) VALUES (1,'HKM IT', 'HKM IT', 1);
 
 -- user role
 INSERT INTO authority  VALUES(1,'ROLE_OAUTH_ADMIN');
@@ -38,8 +44,8 @@ INSERT INTO authority VALUES(6,'ROLE_SSO_ADMIN');
 --  account_locked boolean default false,  
 --  primary key (id)
 
-INSERT INTO credentials (id, name, password, version )
-	VALUES (1, 'johnson','{bcrypt}$2a$10$s.Fr/DyaoiMcRmCD4zicRuMXm6EUhvijVQtNOzKKI2YS7SMIWql9K','0');
+INSERT INTO credentials (id, name, password, version, department_id )
+	VALUES (1, 'johnson','{bcrypt}$2a$10$s.Fr/DyaoiMcRmCD4zicRuMXm6EUhvijVQtNOzKKI2YS7SMIWql9K','0', 1);
 --INSERT INTO credentials VALUES(2,b'1','resource_admin','$2a$10$BurTWIy5NTF9GJJH4magz.9Bd4bBurWYG8tmXxeQh1vs7r/wnCFG2','0');
 --INSERT INTO credentials  VALUES(3,b'1','product_admin','$2a$10$BurTWIy5NTF9GJJH4magz.9Bd4bBurWYG8tmXxeQh1vs7r/wnCFG2','0');
 
