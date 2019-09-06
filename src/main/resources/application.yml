@@ -13,10 +13,10 @@ spring:
       maximum-pool-size: 100
       minimum-idle: 0
     initialization-mode: always
-    jdbc-url: ${spring.datasource.url}
-    password: ''
     url: jdbc:h2:mem:testdb
+    jdbc-url: ${spring.datasource.url}       
     username: sa
+    password: ''
   h2:
     console:
       enabled: true
