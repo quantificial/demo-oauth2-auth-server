@@ -39,6 +39,8 @@ public class HazelcastHttpSessionConfig {
 				.addMapIndexConfig(new MapIndexConfig(
 						HazelcastSessionRepository.PRINCIPAL_NAME_ATTRIBUTE, false));
 
+		config.getGroupConfig().setName("authorization");
+		
 		return Hazelcast.newHazelcastInstance(config); 
 	}
 }
