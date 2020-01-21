@@ -3,7 +3,10 @@ server:
   servlet:
     context-path: /auth
     session:
-      timeout: 30m
+      timeout: 30m  
+  tomcat:
+    remote-ip-header: "X-Forwarded-For"
+    protocol-header: "X-Forwarded-Proto"
       
 spring:
   datasource:

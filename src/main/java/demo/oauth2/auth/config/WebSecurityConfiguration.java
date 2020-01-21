@@ -68,7 +68,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception { 
     	
     	// http.requestMatchers define which requests will be intercepted
-    	// The requestMatchers line specifies to which requests the security check applies. The authorizeRequests line does the actual security check
+    	// The requestMatchers line specifies to which requests the security check applies. 
+    	// The authorizeRequests line does the actual security check
         
     	// for oauth2 endpoints
     	http

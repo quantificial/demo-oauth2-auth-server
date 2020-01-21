@@ -10,11 +10,14 @@ INSERT INTO oauth_client_details (client_id, client_secret, scope, authorized_gr
   VALUES ('app2', '{bcrypt}$2a$10$w6U0a421YvG8GuVXeVcyk..7Kba/esmX0jNwV2jYYwedKC2CIT7Qy', 'user_info,offline_access', 'authorization_code,refresh_token', 'ROLE_CLIENT', 3600, 3600, 'http://localhost:8083/ui2/login', 'true'); 
 
 INSERT INTO oauth_client_details (client_id, client_secret, scope, authorized_grant_types, authorities, access_token_validity, refresh_token_validity, web_server_redirect_uri, autoapprove)
-  VALUES ('app3', '{bcrypt}$2a$10$w6U0a421YvG8GuVXeVcyk..7Kba/esmX0jNwV2jYYwedKC2CIT7Qy', 'user_info,offline_access', 'authorization_code,refresh_token', 'ROLE_CLIENT', 3600, 3600, 'http://localhost:8084/login/sso', 'true'); 
+  VALUES ('app3', '{bcrypt}$2a$10$w6U0a421YvG8GuVXeVcyk..7Kba/esmX0jNwV2jYYwedKC2CIT7Qy', 'user_info,offline_access', 'authorization_code,refresh_token', 'ROLE_CLIENT', 3600, 3600, 'http://localhost:8082/login/sso', 'true'); 
+
+INSERT INTO oauth_client_details (client_id, client_secret, scope, authorized_grant_types, authorities, access_token_validity, refresh_token_validity, web_server_redirect_uri, autoapprove)
+  VALUES ('sss', '{bcrypt}$2a$10$w6U0a421YvG8GuVXeVcyk..7Kba/esmX0jNwV2jYYwedKC2CIT7Qy', 'user_info,offline_access', 'authorization_code,refresh_token', 'ROLE_CLIENT', 3600, 3600, 'http://localhost:8080/sss/login/sso', 'true'); 
 
 -- appalone user could access the demo "api" resource with the allowed scope "read" and "write"
 INSERT INTO oauth_client_details (client_id,resource_ids, client_secret, scope, authorized_grant_types, authorities, access_token_validity,refresh_token_validity, web_server_redirect_uri, autoapprove)
-  VALUES ('appalone', 'api', '{bcrypt}$2a$10$w6U0a421YvG8GuVXeVcyk..7Kba/esmX0jNwV2jYYwedKC2CIT7Qy', 'read,write', 
+  VALUES ('appalone', 'apix', '{bcrypt}$2a$10$w6U0a421YvG8GuVXeVcyk..7Kba/esmX0jNwV2jYYwedKC2CIT7Qy', 'read,write', 
   'client_credentials,refresh_token', 'ROLE_CLIENT', 3600, 3600, 'http://localhost:8084/login/sso', 'true'); 
 
   
